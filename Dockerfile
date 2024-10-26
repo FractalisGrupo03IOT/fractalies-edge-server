@@ -1,18 +1,24 @@
-# Usar una imagen base de OpenJDK
-FROM openjdk:17-jdk-slim
+# Usa una imagen base de Maven con OpenJDK
+FROM maven:3.9.9-openjdk-17-slim AS build
 
 # Establecer el directorio de trabajo en /app
 WORKDIR /app
 
-# Copiar el archivo `pom.xml` y el código fuente al contenedor
+# Copiar los archivos necesarios al contenedor
 COPY pom.xml .
 COPY src ./src
 
-# Compilar el proyecto y construir el archivo JAR dentro del contenedor
-RUN ./mvnw clean package -DskipTests
+# Compilar el proyecto y construir el archivo JAR
+RUN mvn clean package -DskipTests
 
-# Mover el archivo JAR a `app.jar`
-RUN mv target/*.jar app.jar
+# Segunda etapa para ejecutar el JAR en un contenedor más ligero
+FROM openjdk:17-jdk-slim
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar el archivo JAR desde la fase de compilación
+COPY --from=build /app/target/*.jar app.jar
 
 # Exponer el puerto que usa la aplicación (30343 según tu configuración)
 EXPOSE 30343
