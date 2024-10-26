@@ -13,18 +13,20 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "**", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/flowerpot")
+@RequestMapping("/api/v1/flowerpot/links")  // Ruta base del controlador
 public class FlowerpotLinkController {
+
     private final FlowerpotLinkCommandService flowerpotLinkCommandService;
     private final FlowerpotLinkQueryService flowerpotLinkQueryService;
 
     @Autowired
-    public FlowerpotLinkController(FlowerpotLinkCommandService flowerpotLinkCommandService, FlowerpotLinkQueryService flowerpotLinkQueryService) {
+    public FlowerpotLinkController(FlowerpotLinkCommandService flowerpotLinkCommandService,
+                                   FlowerpotLinkQueryService flowerpotLinkQueryService) {
         this.flowerpotLinkCommandService = flowerpotLinkCommandService;
         this.flowerpotLinkQueryService = flowerpotLinkQueryService;
     }
 
-    @PostMapping("/links")
+    @PostMapping
     public ResponseEntity<FlowerpotLinkResource> createFlowerpotLink(@RequestBody CreateFlowerpotLinkResource resource) {
         var createFlowerpotLinkCommand = CreateFlowerpotLinkCommandFromResourceAssembler.toCommandFromResource(resource);
         var flowerpotLinkId = flowerpotLinkCommandService.handle(createFlowerpotLinkCommand);
@@ -42,9 +44,6 @@ public class FlowerpotLinkController {
 
     @PostMapping("/temperature")
     public ResponseEntity<Void> createTemperatureSensor(@RequestBody CreateTemperatureSensorResource resource) {
-        if (!flowerpotLinkQueryService.handle(new GetFlowerpotLinkByIdQuery(resource.flowerpotCloudId())).isPresent()) {
-            throw new ResourceNotFoundException("FlowerpotLink no encontrado para el ID proporcionado");
-        }
         var createTemperatureSensorCommand = CreateTemperatureSensorCommandFromResourceAssembler.toCommandFromResource(resource);
         flowerpotLinkCommandService.handle(createTemperatureSensorCommand);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -52,9 +51,6 @@ public class FlowerpotLinkController {
 
     @PostMapping("/humidity")
     public ResponseEntity<Void> createHumiditySensor(@RequestBody CreateHumiditySensorResource resource) {
-        if (!flowerpotLinkQueryService.handle(new GetFlowerpotLinkByIdQuery(resource.flowerpotCloudId())).isPresent()) {
-            throw new ResourceNotFoundException("FlowerpotLink no encontrado para el ID proporcionado");
-        }
         var createHumiditySensorCommand = CreateHumiditySensorCommandFromResourceAssembler.toCommandFromResource(resource);
         flowerpotLinkCommandService.handle(createHumiditySensorCommand);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -62,9 +58,6 @@ public class FlowerpotLinkController {
 
     @PostMapping("/sunlight")
     public ResponseEntity<Void> createSunlightSensor(@RequestBody CreateSunlightSensorResource resource) {
-        if (!flowerpotLinkQueryService.handle(new GetFlowerpotLinkByIdQuery(resource.flowerpotCloudId())).isPresent()) {
-            throw new ResourceNotFoundException("FlowerpotLink no encontrado para el ID proporcionado");
-        }
         var createSunlightSensorCommand = CreateSunlightSensorCommandFromResourceAssembler.toCommandFromResource(resource);
         flowerpotLinkCommandService.handle(createSunlightSensorCommand);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -75,7 +68,7 @@ public class FlowerpotLinkController {
         var getFlowerpotLinkByIdQuery = new GetFlowerpotLinkByIdQuery(flowerpotLinkId);
         var flowerpotLink = flowerpotLinkQueryService.handle(getFlowerpotLinkByIdQuery);
         if (flowerpotLink.isEmpty()) {
-            throw new ResourceNotFoundException("FlowerpotLink no encontrado");
+            throw new ResourceNotFoundException("FlowerpotLink not found");
         }
         var flowerpotLinkResource = FlowerpotLinkResourceFromEntityAssembler.toResourceFromEntity(flowerpotLink.get());
         return new ResponseEntity<>(flowerpotLinkResource, HttpStatus.OK);
