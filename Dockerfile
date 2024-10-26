@@ -1,5 +1,5 @@
 # Usa una imagen base de Maven con OpenJDK 17
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.4-openjdk-17-slim AS build
 
 # Establecer el directorio de trabajo en /app
 WORKDIR /app
@@ -25,4 +25,5 @@ EXPOSE 30343
 
 # Ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
 
