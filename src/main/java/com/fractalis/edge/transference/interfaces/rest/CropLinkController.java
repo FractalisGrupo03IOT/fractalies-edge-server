@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "**", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/flowerpot/links")  // Ruta base del controlador
+@RequestMapping("/api/v1/crop/links")  // Ruta base del controlador
 public class CropLinkController {
 
     private final CropLinkCommandService cropLinkCommandService;
