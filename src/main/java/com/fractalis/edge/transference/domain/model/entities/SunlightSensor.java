@@ -1,6 +1,6 @@
 package com.fractalis.edge.transference.domain.model.entities;
 
-import com.fractalis.edge.transference.domain.model.aggregates.FlowerpotLink;
+import com.fractalis.edge.transference.domain.model.aggregates.CropLink;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,14 +15,14 @@ public class SunlightSensor {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "flowerpot_link_id")
-    private FlowerpotLink flowerpotLink;
+    @JoinColumn(name = "crop_link_id")
+    private CropLink cropLink;
 
     @Getter
     private Long sunlight;
 
-    public SunlightSensor(FlowerpotLink flowerpotLink, Long sunlight) {
-        this.flowerpotLink = flowerpotLink;
+    public SunlightSensor(CropLink cropLink, Long sunlight) {
+        this.cropLink = cropLink;
         this.sunlight = sunlight;
     }
 }

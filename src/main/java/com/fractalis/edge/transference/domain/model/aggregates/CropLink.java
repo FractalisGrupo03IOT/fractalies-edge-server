@@ -13,12 +13,12 @@ import lombok.Getter;
 @Entity
 @Getter
 @AllArgsConstructor
-public class FlowerpotLink {
+public class CropLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long flowerpotCloudId;
+    private Long cropCloudId;
 
     @Getter
     @Embedded
@@ -32,29 +32,29 @@ public class FlowerpotLink {
     @Embedded
     private final SunlightSensorList sunlightSensorList;
 
-    public FlowerpotLink() {
-        this.flowerpotCloudId = null;
+    public CropLink() {
+        this.cropCloudId = null;
         this.temperatureSensorList = new TemperatureSensorList();
         this.humiditySensorList = new HumiditySensorList();
         this.sunlightSensorList = new SunlightSensorList();
     }
 
-    public FlowerpotLink(Long flowerpotCloudId) {
+    public CropLink(Long cropCloudId) {
         this();
-        this.flowerpotCloudId = flowerpotCloudId;
+        this.cropCloudId = cropCloudId;
     }
 
-    public void createTemperatureSensor(FlowerpotLink  flowerpotLink, Long temperature) {
+    public void createTemperatureSensor(CropLink cropLink, Long temperature) {
         TemperatureSensor temperatureSensor = new TemperatureSensor(this, temperature);
         this.temperatureSensorList.createTemperatureSensor(temperatureSensor);
     }
 
-    public void createHumiditySensor(FlowerpotLink  flowerpotLink, Long humidity) {
+    public void createHumiditySensor(CropLink cropLink, Long humidity) {
         HumiditySensor humiditySensor = new HumiditySensor(this, humidity);
         this.humiditySensorList.createHumiditySensor(humiditySensor);
     }
 
-    public void createSunlightSensor(FlowerpotLink  flowerpotLink, Long sunlight) {
+    public void createSunlightSensor(CropLink cropLink, Long sunlight) {
         SunlightSensor sunlightSensor = new SunlightSensor(this, sunlight);
         this.sunlightSensorList.createSunlightSensor(sunlightSensor);
     }

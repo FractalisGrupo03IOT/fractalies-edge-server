@@ -5,6 +5,6 @@ import com.fractalis.edge.transference.interfaces.rest.resources.CreateTemperatu
 
 public class CreateTemperatureSensorCommandFromResourceAssembler {
     public static CreateTemperatureSensorCommand toCommandFromResource(CreateTemperatureSensorResource resource) {
-        return new CreateTemperatureSensorCommand(resource.flowerpotCloudId(), resource.temperature());
+        return new CreateTemperatureSensorCommand(resource.cropCloudId(), resource.temperature());
     }
 }

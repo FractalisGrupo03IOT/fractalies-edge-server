@@ -10,7 +10,7 @@ import java.util.List;
 
 @Embeddable
 public class SunlightSensorList {
-    @OneToMany(mappedBy = "flowerpotLink", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cropLink", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SunlightSensor> sunlightSensors;
 
     public SunlightSensorList()

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Embeddable
 public class HumiditySensorList {
-    @OneToMany(mappedBy = "flowerpotLink", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cropLink", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HumiditySensor> humiditySensors;
 
     public HumiditySensorList()
