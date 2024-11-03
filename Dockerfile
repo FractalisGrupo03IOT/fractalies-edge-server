@@ -4,7 +4,7 @@ FROM maven:3.8.4-openjdk-17-slim AS build
 # Establecer el directorio de trabajo en /app
 WORKDIR /app
 
-# Copiar los archivos necesarios al contenedor
+# Copiar los archivos necesarios al contenedor 
 COPY pom.xml .
 COPY src ./src
 
