@@ -38,13 +38,13 @@ public class TemperatureSensorList {
 
     public List<TemperatureSensor> getRecentSensors() {
         // Obtener la hora actual en GMT-5
-        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("America/Lima")); // Usar la zona horaria correcta
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
         ZonedDateTime tenMinutesAgo = now.minusMinutes(10); // Hora de hace 10 minutos
 
         return temperatureSensors.stream()
                 .filter(sensor -> {
                     // Convierte el Date recuperado a ZonedDateTime en GMT-5
-                    ZonedDateTime sensorDateTime = ZonedDateTime.ofInstant(sensor.getDataDateTime().toInstant(), ZoneId.of("America/Lima"));
+                    ZonedDateTime sensorDateTime = ZonedDateTime.ofInstant(sensor.getDataDateTime().toInstant(), ZoneId.of("UTC"));
                     // Compara las fechas
                     return sensorDateTime.isAfter(tenMinutesAgo);
                 })

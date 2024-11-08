@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -30,6 +31,6 @@ public class SunlightSensor {
     public SunlightSensor(CropLink cropLink, Long sunlight) {
         this.cropLink = cropLink;
         this.sunlight = sunlight;
-        this.dataDateTime = new Date();
+        this.dataDateTime = Date.from(Instant.now());
     }
 }

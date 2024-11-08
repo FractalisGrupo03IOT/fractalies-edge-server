@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -30,6 +31,6 @@ public class TemperatureSensor {
     public TemperatureSensor(CropLink cropLink, Long temperature) {
         this.cropLink = cropLink;
         this.temperature = temperature;
-        this.dataDateTime = new Date();
+        this.dataDateTime = Date.from(Instant.now());
     }
 }
