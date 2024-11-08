@@ -1,4 +1,4 @@
 package com.fractalis.edge.transference.domain.model.commands;
 
-public record CreateSunlightSensorCommand(Long cropCloudId, Long sunlight) {
+public record CreateSunlightSensorCommand(String iotDeviceId, Long sunlight) {
 }

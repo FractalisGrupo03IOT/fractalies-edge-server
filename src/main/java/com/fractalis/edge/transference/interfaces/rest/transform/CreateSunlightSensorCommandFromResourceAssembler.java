@@ -5,6 +5,6 @@ import com.fractalis.edge.transference.interfaces.rest.resources.CreateSunlightS
 
 public class CreateSunlightSensorCommandFromResourceAssembler {
     public static CreateSunlightSensorCommand toCommandFromResource(CreateSunlightSensorResource resource) {
-        return new CreateSunlightSensorCommand(resource.cropCloudId(), resource.sunlight());
+        return new CreateSunlightSensorCommand(resource.iotDeviceId(), resource.sunlight());
     }
 }

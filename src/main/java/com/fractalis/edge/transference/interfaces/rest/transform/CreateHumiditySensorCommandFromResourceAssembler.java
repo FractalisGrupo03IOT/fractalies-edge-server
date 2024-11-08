@@ -5,6 +5,6 @@ import com.fractalis.edge.transference.interfaces.rest.resources.CreateHumidityS
 
 public class CreateHumiditySensorCommandFromResourceAssembler {
     public static CreateHumiditySensorCommand toCommandFromResource(CreateHumiditySensorResource resource) {
-        return new CreateHumiditySensorCommand(resource.cropCloudId(), resource.humidity());
+        return new CreateHumiditySensorCommand(resource.iotDeviceId(), resource.humidity());
     }
 }

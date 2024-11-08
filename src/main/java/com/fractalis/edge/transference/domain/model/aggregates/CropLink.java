@@ -20,6 +20,8 @@ public class CropLink {
 
     private Long cropCloudId;
 
+    private String iotDeviceId;
+
     @Getter
     @Embedded
     private final TemperatureSensorList temperatureSensorList;
@@ -37,6 +39,7 @@ public class CropLink {
         this.temperatureSensorList = new TemperatureSensorList();
         this.humiditySensorList = new HumiditySensorList();
         this.sunlightSensorList = new SunlightSensorList();
+        this.iotDeviceId = null;
     }
 
     public CropLink(Long cropCloudId) {
@@ -57,5 +60,13 @@ public class CropLink {
     public void createSunlightSensor(CropLink cropLink, Long sunlight) {
         SunlightSensor sunlightSensor = new SunlightSensor(this, sunlight);
         this.sunlightSensorList.createSunlightSensor(sunlightSensor);
+    }
+
+    public void initializeIotDevice(String iotDeviceId) {
+        this.iotDeviceId = iotDeviceId;
+    }
+
+    public void unlinkIotDevice() {
+        this.iotDeviceId = null;
     }
 }

@@ -6,9 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class SunlightSensor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +21,15 @@ public class SunlightSensor {
     @JoinColumn(name = "crop_link_id")
     private CropLink cropLink;
 
+    @Column(name = "data_date_time")
+    private Date dataDateTime;
+
     @Getter
     private Long sunlight;
 
     public SunlightSensor(CropLink cropLink, Long sunlight) {
         this.cropLink = cropLink;
         this.sunlight = sunlight;
+        this.dataDateTime = new Date();
     }
 }

@@ -5,6 +5,6 @@ import com.fractalis.edge.transference.interfaces.rest.resources.CropLinkResourc
 
 public class CropLinkResourceFromEntityAssembler {
     public static CropLinkResource toResourceFromEntity(CropLink entity) {
-        return new CropLinkResource(entity.getId(), entity.getCropCloudId());
+        return new CropLinkResource(entity.getId(), entity.getCropCloudId(), entity.getIotDeviceId());
     }
 }

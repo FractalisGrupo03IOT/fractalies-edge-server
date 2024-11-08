@@ -6,9 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class HumiditySensor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +21,15 @@ public class HumiditySensor {
     @JoinColumn(name = "crop_link_id")
     private CropLink cropLink;
 
+    @Column(name = "data_date_time")
+    private Date dataDateTime;
+
     @Getter
     private Long humidity;
 
     public HumiditySensor(CropLink cropLink, Long humidity) {
         this.cropLink = cropLink;
         this.humidity = humidity;
+        this.dataDateTime = new Date();
     }
 }
