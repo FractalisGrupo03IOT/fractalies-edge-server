@@ -131,7 +131,7 @@ public class CropLinkCommandServiceImpl implements CropLinkCommandService {
 
     @Override
     public void sendToExternalService() {
-        String url = "https://fractalies-edge-server.onrender.com/api/v1/crop/links";
+        String url = "https://fractalisbackend-production.up.railway.app/api/v1/cropData";
         RestTemplate restTemplate = new RestTemplate();
 
         List<CropLink> cropLinks = cropLinkRepository.findCropLinksByIotDeviceIdIsNotNull();
