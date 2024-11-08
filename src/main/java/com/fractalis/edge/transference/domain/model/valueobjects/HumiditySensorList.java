@@ -6,6 +6,8 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,9 +37,17 @@ public class HumiditySensorList {
     }
 
     public List<HumiditySensor> getRecentSensors() {
-        Date tenMinutesAgo = new Date(System.currentTimeMillis() - 10 * 60 * 1000); // 10 minutos en milisegundos
+        // Obtener la hora actual en GMT-5
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("America/Lima")); // Usar la zona horaria correcta
+        ZonedDateTime tenMinutesAgo = now.minusMinutes(10); // Hora de hace 10 minutos
+
         return humiditySensors.stream()
-                .filter(sensor -> sensor.getDataDateTime().after(tenMinutesAgo))
+                .filter(sensor -> {
+                    // Convierte el Date recuperado a ZonedDateTime en GMT-5
+                    ZonedDateTime sensorDateTime = ZonedDateTime.ofInstant(sensor.getDataDateTime().toInstant(), ZoneId.of("America/Lima"));
+                    // Compara las fechas
+                    return sensorDateTime.isAfter(tenMinutesAgo);
+                })
                 .collect(Collectors.toList());
     }
 }
