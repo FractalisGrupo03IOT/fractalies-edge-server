@@ -142,7 +142,7 @@ public class CropLinkCommandServiceImpl implements CropLinkCommandService {
             List<SunlightSensor> recentSunlightSensors = cropLink.getSunlightSensorList().getRecentSensors();
 
             if (recentHumiditySensors.isEmpty() || recentTemperatureSensors.isEmpty() || recentSunlightSensors.isEmpty()) {
-                System.out.println("Una de las listas está vacía, saltando cropLink ID: " + cropLink.getId());
+                System.out.println("Una de las listas está vacía, saltando cropLink ID: " + cropLink.getCropCloudId());
                 continue; // Salta al siguiente cropLink
             }
 
@@ -152,7 +152,7 @@ public class CropLinkCommandServiceImpl implements CropLinkCommandService {
             double uv = calculateAverageSunlight(recentSunlightSensors);
 
             // Crear el cuerpo de la petición
-            PlantStatusRequest request = new PlantStatusRequest(cropLink.getId(), humidity, temperature, uv);
+            PlantStatusRequest request = new PlantStatusRequest(cropLink.getCropCloudId(), humidity, temperature, uv);
 
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Type", "application/json");
@@ -162,9 +162,9 @@ public class CropLinkCommandServiceImpl implements CropLinkCommandService {
 
             try {
                 restTemplate.postForObject(url, requestEntity, String.class);
-                System.out.println("POST enviado con éxito para cropLink ID: " + cropLink.getId());
+                System.out.println("POST enviado con éxito para cropLink ID: " + cropLink.getCropCloudId());
             } catch (Exception e) {
-                System.err.println("Error al enviar el POST para cropLink ID: " + cropLink.getId() + ": " + e.getMessage());
+                System.err.println("Error al enviar el POST para cropLink ID: " + cropLink.getCropCloudId() + ": " + e.getMessage());
             }
         }
     }
